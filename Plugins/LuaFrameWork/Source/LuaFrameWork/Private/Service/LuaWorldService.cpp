@@ -20,7 +20,8 @@ void ULuaWorldService::PostInitialize()
 
 void ULuaWorldService::OnWorldBeginPlay(UWorld& InWorld)
 {
-	LuaOnWorldBeginPlay();
+	UWorld* PtrWorld = &InWorld;
+	LuaOnWorldBeginPlay(PtrWorld);
 }
 
 void ULuaWorldService::Deinitialize()

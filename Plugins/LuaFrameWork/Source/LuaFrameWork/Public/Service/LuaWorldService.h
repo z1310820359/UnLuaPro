@@ -34,7 +34,7 @@ public:
 	void LuaPostInit();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void LuaOnWorldBeginPlay();
+	void LuaOnWorldBeginPlay(UWorld* InWorld);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void LuaDeinit();

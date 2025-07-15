@@ -26,6 +26,10 @@ end
 function M:OnListItemObjectSet(Obj)
     self._data = Obj
     self.TextBlock_76:SetText(Obj.Name)
+    if Obj.IconPath then
+        local texture = UE.LoadObject(Obj.IconPath)
+        self.Image_81:SetBrushFromTexture(texture)
+    end
     self._binObj = Obj.BinObj
     self._binParame = Obj.Prame or {}
     self._callBack = Obj.Func
@@ -39,5 +43,6 @@ function M:OnBtnClick()
         self._callBack(self._binObj, self._binParame)
     end
 end
+
 
 return M

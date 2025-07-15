@@ -51,13 +51,13 @@ void AUIInputActor::EnableInput(APlayerController* PlayerController)
 	}
 }
 
-void AUIInputActor::BindUIAction(FString ActionName, EInputEvent TriggerEvent, UObject* Object, FInputActionHandlerSignature::TMethodPtr< UObject > Func)
-{
-	if (InputComponent) {
-		// InputComponent->BindAction("RoundPlanetPawn_IncreaseSpeedScalar", IE_Pressed, this, Func);
-		InputComponent->BindAction(*ActionName, TriggerEvent, Object, Func);
-	}
-}
+//void AUIInputActor::BindUIAction(FString ActionName, EInputEvent TriggerEvent, UObject* Object, FInputActionHandlerSignature::TMethodPtr< UObject > Func)
+//{
+//	if (InputComponent) {
+//		// InputComponent->BindAction("RoundPlanetPawn_IncreaseSpeedScalar", IE_Pressed, this, Func);
+//		InputComponent->BindAction(*ActionName, TriggerEvent, Object, Func);
+//	}
+//}
 
 void AUIInputActor::ShowPrevEntry()
 {

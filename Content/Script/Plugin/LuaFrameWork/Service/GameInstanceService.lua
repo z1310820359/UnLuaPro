@@ -2,6 +2,8 @@
 
 local GameInstanceService = UnLua.Class()
 
+
+
 function GameInstanceService:LuaInit()
     print("GameIns LuaInit")
     _G.GameInstanceService = self

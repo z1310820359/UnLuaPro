@@ -33,8 +33,8 @@ public:
 
 	virtual void EnableInput(class APlayerController* PlayerController) override;
 
-	UFUNCTION()
-	void BindUIAction(FString ActionName, EInputEvent TriggerEvent, UObject* Object, (*UObject) Func);
+	//UFUNCTION()
+	//void BindUIAction(FString ActionName, EInputEvent TriggerEvent, UObject* Object, (*UObject) Func);
 
 	void ShowPrevEntry();
 };
