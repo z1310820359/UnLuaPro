@@ -40,8 +40,12 @@ BindKey(M, "V", "Pressed", function(self, Key)
 end, { Ctrl = true })
 
 function M:ReceiveEndPlay()
-   
 end
+local BindAction = UnLua.EnhancedInput.BindAction
+local IA = "/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'"
+BindAction(M, IA, "Triggered", function(obj, a,b,c,d)
+    print("aaaaaa")
+end)
 
 -- function M:ReceiveTick(DeltaSeconds)
 -- end

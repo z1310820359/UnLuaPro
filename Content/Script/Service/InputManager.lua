@@ -86,12 +86,10 @@ function InputManager:RegistKeyReleased(Scope, Func, Type, CreateKey)
     if not Scope or not Func or not Type then
         return
     end
-	
     local TypedAction = self._KeyActions and self._KeyActions[Type]
 	local OnReleasedFunc = function()
 		Func(Scope)
 	end
-	
     if TypedAction then
         TypedAction.OnReleased = OnReleasedFunc
 	elseif CreateKey then
@@ -136,6 +134,11 @@ function InputManager:SetupKeyBindings(Obj, Func)
             self:HandleCick(key)
         end
     end
+
+    Obj["LeftMouseButton_Pressed"] = function(Obj, key)
+        print(key.KeyName)
+    end
+
 end
 
 function InputManager:HandleCick(key)
