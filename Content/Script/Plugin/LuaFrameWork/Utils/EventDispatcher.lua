@@ -4,7 +4,7 @@
 ---@type ArrayUtil
 local ArrayUtil = require "Plugin.LuaFrameWork.Utils.ArrayUtil"
 
-require "Plugin.LuaFrameWork.Utils.Class"
+require "Plugin.LuaFrameWork.Utils.LuaClass"
 
 ---@class EventDispatcher
 

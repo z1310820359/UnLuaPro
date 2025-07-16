@@ -1,11 +1,14 @@
 local WorldService = UnLua.Class()
 local UIManager = require "Service.UIManager"
+local InputManager = require "Service.InputManager"
 _G.UIManager = UIManager
+_G.InputManager = InputManager
 
 require("LuaPanda").start("127.0.0.1", 8818)
 function WorldService:LuaInit()
     print("WorldService:LuaInit")
     UIManager:LuaInit()
+    InputManager:LuaInit()
     _G.WorldService = self
     self._NewWorldName = nil
 end
@@ -13,18 +16,20 @@ end
 function WorldService:LuaPostInit()
     print("WorldService:LuaPostInit")
     UIManager:LuaPostInit()
+    InputManager:LuaPostInit()
 end
 
 function WorldService:LuaOnWorldBeginPlay(InWorld)
     print("WorldService:LuaOnWorldBeginPlay")
     UIManager:LuaOnWorldBeginPlay(InWorld)
-
+    InputManager:LuaOnWorldBeginPlay(InWorld)
     -- print(UE.UKismetSystemLibrary.GetObjectName(InWorld))
 end
 
 function WorldService:LuaDeinit()
     print("WorldService:LuaDeinit")
     UIManager:LuaDeinit()
+    InputManager:LuaDeinit()
 end
 
 function WorldService:LuaOpenLevel(WorldName)
