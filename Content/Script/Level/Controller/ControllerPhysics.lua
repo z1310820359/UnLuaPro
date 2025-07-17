@@ -16,36 +16,36 @@ end
 -- function M:UserConstructionScript()
 -- end
 
-function M:HandleCick(key)
-    print(key.Name)
-end
+-- function M:HandleCick(key)
+--     print(key.Name)
+-- end
 
-InputManager:SetupKeyBindings(M, M.HandleCick)
-local BindKey = UnLua.Input.BindKey
+InputManager:SetupKeyBindings(M)
+-- local BindKey = UnLua.Input.BindKey
 
-BindKey(M, "C", "Pressed", function(self, Key)
-    print("按下了C")
-end)
+-- BindKey(M, "C", "Pressed", function(self, Key)
+--     print("按下了C")
+-- end)
 
-BindKey(M, "C", "Pressed", function(self, Key)
-    print("复制")
-end, { Ctrl = true })
+-- BindKey(M, "C", "Pressed", function(self, Key)
+--     print("复制")
+-- end, { Ctrl = true })
 
-BindKey(M, "V", "Pressed", function(self, Key)
-    print("按下了V")
-end)
+-- BindKey(M, "V", "Pressed", function(self, Key)
+--     print("按下了V")
+-- end)
 
-BindKey(M, "V", "Pressed", function(self, Key)
-    print("粘贴")
-end, { Ctrl = true })
+-- BindKey(M, "V", "Pressed", function(self, Key)
+--     print("粘贴")
+-- end, { Ctrl = true })
 
 function M:ReceiveEndPlay()
 end
-local BindAction = UnLua.EnhancedInput.BindAction
-local IA = "/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'"
-BindAction(M, IA, "Triggered", function(obj, a,b,c,d)
-    print("aaaaaa")
-end)
+-- local BindAction = UnLua.EnhancedInput.BindAction
+-- local IA = "/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'"
+-- BindAction(M, IA, "Triggered", function(obj, a,b,c,d)
+--     print("aaaaaa")
+-- end)
 
 -- function M:ReceiveTick(DeltaSeconds)
 -- end

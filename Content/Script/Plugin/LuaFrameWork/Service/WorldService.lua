@@ -11,6 +11,7 @@ function WorldService:LuaInit()
     InputManager:LuaInit()
     _G.WorldService = self
     self._NewWorldName = nil
+    self._NowWorld = nil
 end
 
 function WorldService:LuaPostInit()
@@ -21,6 +22,7 @@ end
 
 function WorldService:LuaOnWorldBeginPlay(InWorld)
     print("WorldService:LuaOnWorldBeginPlay")
+    self._NowWorld = InWorld
     UIManager:LuaOnWorldBeginPlay(InWorld)
     InputManager:LuaOnWorldBeginPlay(InWorld)
     -- print(UE.UKismetSystemLibrary.GetObjectName(InWorld))
@@ -41,6 +43,16 @@ end
 function WorldService:LuaOpenLevelInner()
     if self._NewWorldName then
         UE.UGameplayStatics.OpenLevel(self, self._NewWorldName)
+    end
+end
+
+function WorldService:LuaGetWorld()
+    return self._NowWorld
+end
+
+function WorldService:LuaGetWorldName()
+    if self._NowWorld then
+        return UE.UKismetSystemLibrary.GetObjectName(self._NowWorld)
     end
 end
 
