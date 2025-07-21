@@ -85,24 +85,24 @@ end
 
 local List = {}
 List.__index = List
- 
+
 function List:New()
     local o = {}
     setmetatable(o, self)
     return o
 end
- 
+
 function List:Add(item)
     table.insert(self, item)
 end
- 
+
 function List:Clear()
     local count = self:Count()
     for i=count,1,-1 do
         table.remove(self)
     end
 end
- 
+
 function List:Contains(item)
     local count = self:Count()
     for i=1,count do
@@ -112,11 +112,11 @@ function List:Contains(item)
     end
     return false
 end
- 
+
 function List:Count()
     return #self
 end
- 
+
 function List:Find(predicate)
     if (predicate == nil or type(predicate) ~= 'function') then
         print('predicate is invalid!')
@@ -130,7 +130,7 @@ function List:Find(predicate)
     end
     return nil
 end
- 
+
 function List:ForEach(action)
     if (action == nil or type(action) ~= 'function') then
         print('action is invalid!')
@@ -141,7 +141,7 @@ function List:ForEach(action)
         action(self[i])
     end
 end
- 
+
 function List:IndexOf(item)
     local count = self:Count()
     for i=1,count do
@@ -151,7 +151,7 @@ function List:IndexOf(item)
     end
     return 0
 end
- 
+
 function List:LastIndexOf(item)
     local count = self:Count()
     for i=count,1,-1 do
@@ -161,15 +161,15 @@ function List:LastIndexOf(item)
     end
     return 0
 end
- 
+
 function List:Insert(index, item)
     table.insert(self, index, item)
 end
- 
+
 -- function List:ItemType()
 --     return self.itemType
 -- end
- 
+
 function List:Remove(item)
     local idx = self:LastIndexOf(item)
     if (idx > 0) then
@@ -181,7 +181,7 @@ end
 function List:RemoveAt(index)
     table.remove(self, index)
 end
- 
+
 function List:Sort(comparison, func)
     if (comparison ~= nil and type(comparison) ~= 'function') then
         print('comparison is invalid')
@@ -198,13 +198,13 @@ _G.List = List
 
 local Stack = {}
 local tinsert = table.insert
- 
+
 function Stack:New()
     local t = {}
     setmetatable(t, {__index = self})
     return t
 end
- 
+
 function Stack:Push(...)
     local arg = {...}
     self.dataTb = self.dataTb or {}
@@ -214,7 +214,7 @@ function Stack:Push(...)
         end
     end
 end
- 
+
 function Stack:Pop(num)
     num = num or 1
     assert(num > 0, "num必须为正整数")
@@ -225,13 +225,13 @@ function Stack:Pop(num)
     end
     return table.unpack(popTb)
 end
- 
+
 function Stack:List()
     for i = 1, #self.dataTb do
         print(i, self.dataTb[i])
     end
 end
- 
+
 function Stack:Count()
     return #self.dataTb
 end

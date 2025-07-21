@@ -58,10 +58,17 @@ function M:Construct()
         NewObj.IconPath = LonginData[i].IconPath
         self.ListView_96:AddItem(NewObj)
     end
+    local InputCfg = require "Cfg.InputCfg"
+    local ActionEvent = InputCfg.ActionEvent
+    InputManager:RegisterInputAction("IA_Move", ActionEvent.Started, self, self.handleMoveAction)
 end
 
 --function M:Tick(MyGeometry, InDeltaTime)
 --end
+
+function M:handleMoveAction(Parame)
+    print("handleMoveAction started")
+end
 
 function M:HandleItemClick(idx)
     if idx <= #LonginData then

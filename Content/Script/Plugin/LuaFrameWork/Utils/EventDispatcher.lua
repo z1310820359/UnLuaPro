@@ -111,6 +111,4 @@ function EventDispatcher:ClearNullEventHandler()
     end
 end
 
-_G.EventSys = EventDispatcher:New()
-
 return EventDispatcher

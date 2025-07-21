@@ -1,37 +1,59 @@
 local WorldService = UnLua.Class()
-local UIManager = require "Service.UIManager"
-local InputManager = require "Service.InputManager"
-_G.UIManager = UIManager
-_G.InputManager = InputManager
+
+local ServicesList = {
+    UIManager = "Service.UIManager",
+    InputManager = "Service.InputManager",
+}
 
 require("LuaPanda").start("127.0.0.1", 8818)
 function WorldService:LuaInit()
+    self._managerList = {}
     print("WorldService:LuaInit")
-    UIManager:LuaInit()
-    InputManager:LuaInit()
+    for k,v in pairs(ServicesList) do
+        local manager = require(v)
+        if manager and manager.LuaInit then
+            manager:LuaInit()
+            self._managerList[k] = manager
+            _G[k] = manager
+        end
+    end
     _G.WorldService = self
+    self._nowWorldName = nil
     self._NewWorldName = nil
     self._NowWorld = nil
 end
 
 function WorldService:LuaPostInit()
     print("WorldService:LuaPostInit")
-    UIManager:LuaPostInit()
-    InputManager:LuaPostInit()
+    for _, v in pairs(self._managerList) do
+        if v.LuaPostInit then
+            v:LuaPostInit()
+        end
+    end
 end
 
 function WorldService:LuaOnWorldBeginPlay(InWorld)
     print("WorldService:LuaOnWorldBeginPlay")
+    self._nowWorldName = UE.UKismetSystemLibrary.GetObjectName(InWorld)
     self._NowWorld = InWorld
-    UIManager:LuaOnWorldBeginPlay(InWorld)
-    InputManager:LuaOnWorldBeginPlay(InWorld)
-    -- print(UE.UKismetSystemLibrary.GetObjectName(InWorld))
+    for _, v in pairs(self._managerList) do
+        if v.LuaOnWorldBeginPlay then
+            v:LuaOnWorldBeginPlay(InWorld)
+        end
+    end
+    EventSys:Dispatch("OnWorldChange", self._nowWorldName)
+    self._NewWorldName = nil
+    self._NowWorld = nil
+    self._managerList = {}
 end
 
 function WorldService:LuaDeinit()
     print("WorldService:LuaDeinit")
-    UIManager:LuaDeinit()
-    InputManager:LuaDeinit()
+    for _, v in pairs(self._managerList) do
+        if v.LuaDeinit then
+            v:LuaDeinit()
+        end
+    end
 end
 
 function WorldService:LuaOpenLevel(WorldName)
@@ -54,6 +76,7 @@ function WorldService:LuaGetWorldName()
     if self._NowWorld then
         return UE.UKismetSystemLibrary.GetObjectName(self._NowWorld)
     end
+    return self._NewWorldName
 end
 
 return WorldService

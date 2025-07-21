@@ -9,14 +9,14 @@ local LevelUIMap = {
         }
     },
     Demo2 = {
-        {
-            Name = "HUD",
-            Path = '/Game/UI/UIBP/Play/WBP_HUDLocation.WBP_HUDLocation_C',
-        },
-                {
-            Name = "jogle",
-            Path = '/Game/UI/UIBP/Play/WBP_HUDLocation2.WBP_HUDLocation2_C',
-        }
+        -- {
+        --     Name = "HUD",
+        --     Path = '/Game/UI/UIBP/Play/WBP_HUDLocation.WBP_HUDLocation_C',
+        -- },
+        --         {
+        --     Name = "jogle",
+        --     Path = '/Game/UI/UIBP/Play/WBP_HUDLocation2.WBP_HUDLocation2_C',
+        -- }
     }
 }
 

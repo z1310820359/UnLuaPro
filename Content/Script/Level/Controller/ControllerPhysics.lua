@@ -5,6 +5,8 @@
 -- @AUTHOR **
 -- @DATE ${date} ${time}
 --
+local InputCfg = require "Cfg.InputCfg"
+local ControllerCfg = require "Cfg.ControllerCfg"
 
 ---@type BP_ControllerPhysics_C
 local M = UnLua.Class()
@@ -23,6 +25,11 @@ end
 InputManager:SetupKeyBindings(M)
 -- local BindKey = UnLua.Input.BindKey
 
+function M:Initialize(Initializer)
+    print("BP_ControllerPhysics_C Initialize")
+    InputManager:RegisterInputAction("IA_ChangePawn", InputCfg.ActionEvent.Completed, self, self.ShowMouse)
+    EventSys:AddEventListener("OnWorldChange", self.ChangeWorldPawn, self)
+end
 -- BindKey(M, "C", "Pressed", function(self, Key)
 --     print("按下了C")
 -- end)
@@ -38,8 +45,42 @@ InputManager:SetupKeyBindings(M)
 -- BindKey(M, "V", "Pressed", function(self, Key)
 --     print("粘贴")
 -- end, { Ctrl = true })
+-- function M:ReceiveBeginPlay()
+--     print("ReceiveBeginPlay")
+--     InputManager:RegisterInputAction("IA_ChangePawn", InputCfg.ActionEvent.Completed, self, self.ChangeCtr)
+-- end
 
-function M:ReceiveEndPlay()
+-- function M:ReceiveEndPlay()
+--     print("ReceiveEndPlay")
+--     InputManager:UnRegisterInputAction("IA_ChangePawn", InputCfg.ActionEvent.Completed, self)
+-- end
+
+function M:ChangeCtr(Path)
+    print("ChangeCtr")
+    local world = self:GetWorld()
+    local AlwasSpawn = UE.ESlateParentWindowSearchMethod.AlwasSpawn
+    local ActorClass = UE.UClass.Load(Path)
+    local Transform = UE.FTransform()
+    local pawn = world:SpawnActor(ActorClass, Transform, AlwasSpawn)
+    self:Possess(pawn)
+end
+
+function M:ChangeWorldPawn(Event, worldName)
+    if ControllerCfg.Ctr_Pawn[worldName] then
+        UE.UKismetSystemLibrary.K2_SetTimerDelegate({self,
+            function() self:ChangeCtr(ControllerCfg.Ctr_Pawn[worldName]) end
+        }, 0.1, false)
+    end
+end
+
+function M:ShowMouse(Data)
+    self.bShowMouseCursor = not self.bShowMouseCursor
+end
+
+function M:ReceiveDestroyed()
+    print("BP_ControllerPhysics_C ReceiveDestroyed")
+    InputManager:UnRegisterInputAction("IA_ChangePawn", InputCfg.ActionEvent.Completed, self)
+    EventSys:RemoveEventListener("OnWorldChange", self.ChangeWorldPawn, self)
 end
 -- local BindAction = UnLua.EnhancedInput.BindAction
 -- local IA = "/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'"
